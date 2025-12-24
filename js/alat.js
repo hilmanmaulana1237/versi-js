@@ -3,24 +3,29 @@
   const userRole = localStorage.getItem('role');
   const token = localStorage.getItem('token');
 
-  // Load Data
   document.addEventListener('DOMContentLoaded', () => {
+    console.log('Alat page loaded. Role:', userRole);
+
     // === STRICT VIEW SEPARATION ===
     const userSection = document.getElementById("userDashboard");
     const adminSection = document.getElementById("adminDashboard");
 
-    // Reset
+    // Hide all first
     if (userSection) userSection.classList.remove('active');
     if (adminSection) adminSection.classList.remove('active');
 
-    // Debug Role
-    console.log("Alat Page - Current Role:", userRole);
-
     if (userRole === 'admin') {
+      console.log('Showing admin view');
       if (adminSection) adminSection.classList.add('active');
       renderAdminTable();
+
+      // Attach button event
+      const btnTambah = document.getElementById('btnTambahAlat');
+      if (btnTambah) {
+        btnTambah.addEventListener('click', tambahAlat);
+      }
     } else {
-      // Default to User if not admin
+      console.log('Showing user view');
       if (userSection) userSection.classList.add('active');
       renderUserTable();
     }
@@ -31,7 +36,15 @@
     const tbody = document.getElementById("tabelAlat");
     if (!tbody) return;
 
+    console.log('Rendering admin table with', data.length, 'items');
+
     tbody.innerHTML = "";
+
+    if (data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada data alat</td></tr>';
+      return;
+    }
+
     data.forEach(alat => {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -66,7 +79,15 @@
     const tbody = document.getElementById("userAlatTable");
     if (!tbody) return;
 
+    console.log('Rendering user table with', data.length, 'items');
+
     tbody.innerHTML = "";
+
+    if (data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada data alat tersedia</td></tr>';
+      return;
+    }
+
     data.forEach(alat => {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -95,13 +116,18 @@
 
   // Admin Functions
   function tambahAlat() {
-    const nama = document.getElementById('nama').value;
-    const kategori = document.getElementById('kategori').value;
+    const nama = document.getElementById('nama').value.trim();
+    const kategori = document.getElementById('kategori').value.trim();
     const stok = document.getElementById('stok').value;
     const harga = document.getElementById('harga').value;
 
-    if (!nama || !harga) {
-      alert("Nama dan Harga wajib diisi");
+    if (!nama) {
+      alert("Nama alat wajib diisi");
+      return;
+    }
+
+    if (!harga || parseInt(harga) <= 0) {
+      alert("Harga sewa wajib diisi dengan nilai valid");
       return;
     }
 
@@ -119,7 +145,7 @@
       // Clear form
       document.getElementById('nama').value = '';
       document.getElementById('kategori').value = '';
-      document.getElementById('stok').value = '';
+      document.getElementById('stok').value = '1';
       document.getElementById('harga').value = '';
 
       // Reload table without full page reload
@@ -155,6 +181,9 @@
     document.getElementById('kategori').value = alat.kategori;
     document.getElementById('stok').value = alat.stok;
     document.getElementById('harga').value = alat.harga_per_jam;
+
+    // Scroll to form
+    document.querySelector('.form-card')?.scrollIntoView({ behavior: 'smooth' });
 
     // Hapus alat lama (user akan simpan ulang)
     if (confirm("Data akan diisi di form. Setelah edit, klik Simpan untuk menyimpan perubahan.")) {

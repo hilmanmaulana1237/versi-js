@@ -5,7 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bersenandung | Riwayat Penyewaan</title>
-  <link rel="stylesheet" href="css/style.css?v=1">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <style>
+    /* Role-based visibility */
+    .role-section {
+      display: none;
+    }
+
+    .role-section.active {
+      display: block;
+    }
+
+    /* Badge colors */
+    .badge.pending {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    .badge.lunas {
+      background: rgba(88, 185, 134, 0.2);
+      color: #58b986;
+    }
+  </style>
 </head>
 
 <body class="dashboard-page">
@@ -16,8 +37,34 @@
   <main class="container">
     <h1 class="page-title">Riwayat Penyewaan</h1>
 
-    <!-- ================= ADMIN ONLY ================= -->
-    <section id="adminDashboard" class="admin-section">
+    <!-- ================= USER VIEW ================= -->
+    <section id="userDashboard" class="role-section">
+      <section class="admin-table">
+        <div class="table-header">
+          <h3>Riwayat Sewa Saya</h3>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Alat</th>
+                <th>Durasi</th>
+                <th>Total</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="userRiwayatTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+    <!-- ================= END USER ================= -->
+
+
+    <!-- ================= ADMIN VIEW ================= -->
+    <section id="adminDashboard" class="role-section">
 
       <!-- HEADER -->
       <div class="admin-header">
@@ -31,17 +78,17 @@
       <section class="stats-grid admin-stats">
         <div class="stat-card admin">
           <span class="stat-label">Total Transaksi</span>
-          <h3 class="stat-number">12</h3>
+          <h3 class="stat-number" id="statTotalTrx">0</h3>
         </div>
 
         <div class="stat-card admin">
           <span class="stat-label">Menunggu Konfirmasi</span>
-          <h3 class="stat-number">3</h3>
+          <h3 class="stat-number" id="statPending">0</h3>
         </div>
 
         <div class="stat-card admin">
           <span class="stat-label">Selesai</span>
-          <h3 class="stat-number">9</h3>
+          <h3 class="stat-number" id="statSelesai">0</h3>
         </div>
       </section>
 
@@ -50,7 +97,7 @@
         <h3>Data Penyewaan</h3>
 
         <div class="table-responsive">
-          <table class="riwayat-table">
+          <table>
             <thead>
               <tr>
                 <th>Nama Penyewa</th>
@@ -63,33 +110,13 @@
                 <th>Aksi</th>
               </tr>
             </thead>
-
-            <tbody>
-              <tr>
-                <td>Nazwa</td>
-                <td>0857xxxxxx</td>
-                <td>Gitar</td>
-                <td>3 Jam</td>
-                <td>Rp150.000</td>
-                <td><a href="#" class="link-more">Lihat</a></td>
-                <td><span class="badge pending">Pending</span></td>
-                <td><button class="btn-primary">Konfirmasi</button></td>
-              </tr>
-
-              <tr>
-                <td>Rizky</td>
-                <td>0812xxxxxx</td>
-                <td>Drum</td>
-                <td>2 Jam</td>
-                <td>Rp200.000</td>
-                <td><a href="#" class="link-more">Lihat</a></td>
-                <td><span class="badge selesai">Selesai</span></td>
-                <td><button class="btn-secondary" disabled>Selesai</button></td>
-              </tr>
-            </tbody>
+            <tbody id="adminRiwayatTable"></tbody>
           </table>
         </div>
       </section>
+
+    </section>
+    <!-- ================= END ADMIN ================= -->
 
   </main>
 

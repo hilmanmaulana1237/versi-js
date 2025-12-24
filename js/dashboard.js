@@ -5,52 +5,89 @@
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Greeting
-    const greeting = document.querySelector('.dash-hero-content h1');
-    if (greeting && user.username) {
-      greeting.innerHTML = `Selamat Datang, <span>${user.username}</span>`;
-    }
+    console.log('Dashboard loaded. Role:', userRole);
 
     // Role Based View
     const userDash = document.getElementById("userDashboard");
     const adminDash = document.getElementById("adminDashboard");
 
-    // Reset first (safety)
+    // Hide all first
     if (userDash) userDash.classList.remove('active');
     if (adminDash) adminDash.classList.remove('active');
 
     if (userRole === "admin") {
+      console.log('Showing admin dashboard');
       if (adminDash) adminDash.classList.add('active');
+      loadAdminDashboard();
     } else {
-      // User Role (or undefined)
+      console.log('Showing user dashboard');
       if (userDash) userDash.classList.add('active');
+      loadUserDashboard();
     }
-
-    // Fetch Data from localStorage
-    fetchDashboardData();
   });
 
-  function fetchDashboardData() {
-    try {
-      const stats = DataManager.getStats(userRole, user.id);
-      updateStats(stats.totalAlat, stats.activeTrx, stats.totalTrx);
-    } catch (err) {
-      console.log("Dashboard fetch error", err);
+  function loadUserDashboard() {
+    // Update greeting
+    const greeting = document.querySelector('#userDashboard .dash-hero-content h1');
+    if (greeting && user.username) {
+      greeting.innerHTML = `Selamat Datang, <span>${user.username}</span>`;
     }
+
+    // Get stats
+    const stats = DataManager.getStats('user', user.id);
+
+    // Update stat numbers
+    const totalAlat = document.getElementById('userTotalAlat');
+    const sewaAktif = document.getElementById('userSewaAktif');
+    const totalSewa = document.getElementById('userTotalSewa');
+
+    if (totalAlat) totalAlat.textContent = stats.totalAlat;
+    if (sewaAktif) sewaAktif.textContent = stats.activeTrx;
+    if (totalSewa) totalSewa.textContent = stats.totalTrx;
   }
 
-  function updateStats(alat, active, total) {
-    // Select elements based on role view
-    const scope = userRole === 'admin' ? '.admin-stats' : '.stats-grid:not(.admin-stats)';
-    const container = document.querySelector(scope);
+  function loadAdminDashboard() {
+    // Get stats
+    const stats = DataManager.getStats('admin', null);
 
-    if (!container) return;
+    // Update stat numbers
+    const totalAlat = document.getElementById('adminTotalAlat');
+    const sewaAktif = document.getElementById('adminSewaAktif');
+    const totalTrx = document.getElementById('adminTotalTrx');
 
-    const numbers = container.querySelectorAll('.stat-number');
-    if (numbers.length >= 3) {
-      numbers[0].textContent = alat;
-      numbers[1].textContent = active;
-      numbers[2].textContent = total;
+    if (totalAlat) totalAlat.textContent = stats.totalAlat;
+    if (sewaAktif) sewaAktif.textContent = stats.activeTrx;
+    if (totalTrx) totalTrx.textContent = stats.totalTrx;
+
+    // Load recent transactions
+    loadRecentTransactions();
+  }
+
+  function loadRecentTransactions() {
+    const tbody = document.getElementById('recentTransactions');
+    if (!tbody) return;
+
+    const transactions = DataManager.getTransaksi();
+    // Get last 5 transactions
+    const recent = transactions.slice(-5).reverse();
+
+    if (recent.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada transaksi</td></tr>';
+      return;
     }
+
+    tbody.innerHTML = '';
+    recent.forEach(trx => {
+      const badgeClass = trx.status === 'pending' ? 'pending' : (trx.status === 'selesai' ? 'selesai' : 'aktif');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${trx.nama_penyewa || 'User'}</td>
+        <td>${trx.alat?.nama || 'Alat'}</td>
+        <td>${trx.durasi} Jam</td>
+        <td>Rp ${trx.total_harga?.toLocaleString('id-ID')}</td>
+        <td><span class="badge ${badgeClass}">${trx.status}</span></td>
+      `;
+      tbody.appendChild(row);
+    });
   }
 })();

@@ -5,7 +5,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bersenandung | Manajemen Alat</title>
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <style>
+    /* Role-based visibility */
+    .role-section {
+      display: none;
+    }
+
+    .role-section.active {
+      display: block;
+    }
+
+    /* Form styling */
+    .form-card {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .form-card h3 {
+      color: #f5e9dc;
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-grid input {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .form-grid input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Button styling */
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    .btn-danger:hover {
+      background: #c82333;
+    }
+  </style>
 </head>
 
 <body class="dashboard-page">
@@ -20,11 +75,8 @@
     <section id="userDashboard" class="role-section">
       <section class="admin-table">
         <div class="table-header">
-          // ...
-          <!-- ================= ADMIN VIEW ================= -->
-          <section id="adminDashboard" class="admin-section role-section">
-            <h3>Daftar Alat Musik</h3>
-            <span class="table-desc">Pilih alat musik dan lakukan penyewaan</span>
+          <h3>Daftar Alat Musik</h3>
+          <span class="table-desc">Pilih alat musik dan lakukan penyewaan</span>
         </div>
 
         <table>
@@ -33,7 +85,7 @@
               <th>Nama</th>
               <th>Kategori</th>
               <th>Stok</th>
-              <th>Harga / Hari</th>
+              <th>Harga / Jam</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -45,7 +97,7 @@
 
 
     <!-- ================= ADMIN VIEW ================= -->
-    <section id="adminDashboard" class="admin-section">
+    <section id="adminDashboard" class="role-section">
 
       <div class="admin-header">
         <div>
@@ -61,11 +113,11 @@
         <div class="form-grid">
           <input type="text" id="nama" placeholder="Nama Alat">
           <input type="text" id="kategori" placeholder="Kategori">
-          <input type="number" id="stok" placeholder="Stok">
-          <input type="number" id="harga" placeholder="Harga Sewa">
+          <input type="number" id="stok" placeholder="Stok" value="1">
+          <input type="number" id="harga" placeholder="Harga Sewa per Jam">
         </div>
 
-        <button class="btn-primary" onclick="tambahAlat()">Simpan</button>
+        <button class="btn-primary" id="btnTambahAlat">Simpan</button>
       </section>
 
       <!-- TABLE -->
@@ -80,7 +132,7 @@
               <th>Nama</th>
               <th>Kategori</th>
               <th>Stok</th>
-              <th>Harga</th>
+              <th>Harga / Jam</th>
               <th>Aksi</th>
             </tr>
           </thead>
