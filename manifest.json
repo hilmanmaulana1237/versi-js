@@ -1,0 +1,8 @@
+{
+"name": "Bersenandung",
+"short_name": "Bersenandung",
+"start_url": "/index.html",
+"display": "standalone",
+"theme_color": "#4e342e",
+"background_color": "#4e342e"
+}

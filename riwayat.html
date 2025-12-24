@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bersenandung | Riwayat Penyewaan</title>
+  <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <main class="container">
+    <h1 class="page-title">Riwayat Penyewaan</h1>
+
+    <!-- ================= ADMIN ONLY ================= -->
+    <section id="adminDashboard" class="admin-section">
+
+      <!-- HEADER -->
+      <div class="admin-header">
+        <div>
+          <h2>Riwayat Transaksi</h2>
+          <p>Konfirmasi pembayaran dan pantau penyewaan alat</p>
+        </div>
+      </div>
+
+      <!-- STATISTIK -->
+      <section class="stats-grid admin-stats">
+        <div class="stat-card admin">
+          <span class="stat-label">Total Transaksi</span>
+          <h3 class="stat-number">12</h3>
+        </div>
+
+        <div class="stat-card admin">
+          <span class="stat-label">Menunggu Konfirmasi</span>
+          <h3 class="stat-number">3</h3>
+        </div>
+
+        <div class="stat-card admin">
+          <span class="stat-label">Selesai</span>
+          <h3 class="stat-number">9</h3>
+        </div>
+      </section>
+
+      <!-- TABEL RIWAYAT -->
+      <section class="admin-table">
+        <h3>Data Penyewaan</h3>
+
+        <div class="table-responsive">
+          <table class="riwayat-table">
+            <thead>
+              <tr>
+                <th>Nama Penyewa</th>
+                <th>No HP</th>
+                <th>Alat</th>
+                <th>Durasi</th>
+                <th>Total</th>
+                <th>Bukti</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Nazwa</td>
+                <td>0857xxxxxx</td>
+                <td>Gitar</td>
+                <td>3 Jam</td>
+                <td>Rp150.000</td>
+                <td><a href="#" class="link-more">Lihat</a></td>
+                <td><span class="badge pending">Pending</span></td>
+                <td><button class="btn-primary">Konfirmasi</button></td>
+              </tr>
+
+              <tr>
+                <td>Rizky</td>
+                <td>0812xxxxxx</td>
+                <td>Drum</td>
+                <td>2 Jam</td>
+                <td>Rp200.000</td>
+                <td><a href="#" class="link-more">Lihat</a></td>
+                <td><span class="badge selesai">Selesai</span></td>
+                <td><button class="btn-secondary" disabled>Selesai</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+  </main>
+
+  <!-- SCRIPT -->
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/riwayat.js"></script>
+
+</body>
+
+</html>

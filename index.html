@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Bersenandung</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="auth-page">
+
+  <div class="auth-wrapper">
+
+    <!-- BRAND / SAMBUTAN -->
+    <div class="auth-brand">
+      <img src="assets/logo-bersenandung.png" class="auth-logo">
+
+      <h1>Bersenandung</h1>
+      <p class="tagline">
+        Sistem Informasi Penyewaan Alat Studio Musik
+      </p>
+
+      <p class="desc">
+        Bersenandung menyediakan layanan penyewaan alat musik profesional
+        seperti gitar, drum, piano, bass, dan sound system untuk kebutuhan
+        latihan, rekaman, dan pertunjukan.
+      </p>
+    </div>
+
+    <!-- FORM LOGIN -->
+    <div class="auth-box">
+      <h2>Login</h2>
+
+      <input type="email" id="email" placeholder="Email">
+      <div class="password-container">
+        <input type="password" id="password" placeholder="Password">
+        <button type="button" class="toggle-password" onclick="togglePassword('password')">👁️</button>
+      </div>
+
+      <button id="loginBtn">Masuk</button>
+
+      <p>
+        Belum punya akun?
+        <a href="register.html">Daftar sekarang</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

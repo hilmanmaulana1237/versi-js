@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bersenandung | Manajemen Alat</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <main class="container">
+    <h1 class="page-title">Manajemen Alat</h1>
+
+    <!-- ================= USER VIEW ================= -->
+    <section id="userDashboard" class="role-section">
+      <section class="admin-table">
+        <div class="table-header">
+          // ...
+          <!-- ================= ADMIN VIEW ================= -->
+          <section id="adminDashboard" class="admin-section role-section">
+            <h3>Daftar Alat Musik</h3>
+            <span class="table-desc">Pilih alat musik dan lakukan penyewaan</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Kategori</th>
+              <th>Stok</th>
+              <th>Harga / Hari</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="userAlatTable"></tbody>
+        </table>
+      </section>
+    </section>
+    <!-- ================= END USER ================= -->
+
+
+    <!-- ================= ADMIN VIEW ================= -->
+    <section id="adminDashboard" class="admin-section">
+
+      <div class="admin-header">
+        <div>
+          <h2>Kelola Alat Musik</h2>
+          <p>Tambah, edit, dan hapus data alat musik</p>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <section class="form-card">
+        <h3>Tambah / Edit Alat</h3>
+
+        <div class="form-grid">
+          <input type="text" id="nama" placeholder="Nama Alat">
+          <input type="text" id="kategori" placeholder="Kategori">
+          <input type="number" id="stok" placeholder="Stok">
+          <input type="number" id="harga" placeholder="Harga Sewa">
+        </div>
+
+        <button class="btn-primary" onclick="tambahAlat()">Simpan</button>
+      </section>
+
+      <!-- TABLE -->
+      <section class="admin-table">
+        <div class="table-header">
+          <h3>Data Alat Musik</h3>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Kategori</th>
+              <th>Stok</th>
+              <th>Harga</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabelAlat"></tbody>
+        </table>
+      </section>
+
+    </section>
+    <!-- ================= END ADMIN ================= -->
+
+  </main>
+
+  <!-- SCRIPT -->
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/alat.js"></script>
+
+</body>
+
+</html>

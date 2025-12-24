@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bersenandung | Sewa Alat</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- HERO BACKGROUND -->
+  <section class="dash-hero">
+    <div class="dash-hero-overlay"></div>
+    <div class="dash-hero-content">
+      <h1>Sewa Alat Musik</h1>
+      <p>Lengkapi data penyewaan dan lakukan pembayaran</p>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- ================= DETAIL ALAT ================= -->
+    <section class="form-card">
+      <h3>Detail Alat</h3>
+
+      <div class="detail-box">
+        <p><strong>Nama Alat:</strong> <span id="namaAlat">Sound System</span></p>
+        <p><strong>Harga / Jam:</strong> Rp <span id="hargaAlat">50000</span></p>
+      </div>
+    </section>
+
+    <!-- ================= FORM SEWA ================= -->
+    <section class="form-card">
+      <h3>Data Penyewa</h3>
+
+      <div class="form-grid">
+        <input type="text" id="nama" placeholder="Nama Lengkap" required>
+        <input type="text" id="hp" placeholder="Nomor HP" required>
+        <input type="number" id="durasi" placeholder="Durasi (jam)" min="1">
+        <input type="text" id="total" placeholder="Total Bayar" readonly>
+      </div>
+    </section>
+
+    <!-- ================= PEMBAYARAN ================= -->
+    <section class="form-card">
+      <h3>Pembayaran</h3>
+
+      <button type="button" class="btn-secondary" onclick="openQR()">
+        QR Pembayaran di Sini
+      </button>
+
+      <div class="form-grid" style="margin-top:16px;">
+        <input type="file" id="bukti" accept="image/*">
+      </div>
+
+      <button class="btn-primary" style="margin-top:20px;" onclick="kirimPenyewaan()">
+        Kirim Penyewaan
+      </button>
+    </section>
+
+    <!-- LINK BALIK -->
+    <div style="margin-top:30px; text-align:center;">
+      <a href="alat.html" class="btn-secondary">← Lihat Alat</a>
+    </div>
+
+  </main>
+
+  <!-- ================= MODAL QR ================= -->
+  <div id="qrModal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeQR()">✕</button>
+
+      <h3>QR Pembayaran</h3>
+      <p>Scan QR berikut untuk melakukan pembayaran</p>
+
+      <img src="assets/qr-dana.png" class="qr-image" alt="QR Pembayaran">
+
+      <p class="qr-note">
+        Upload bukti pembayaran setelah transfer
+      </p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/sewa.js"></script>
+
+</body>
+
+</html>

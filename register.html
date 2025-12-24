@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Register | Bersenandung</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="auth-page">
+
+  <div class="auth-wrapper">
+
+    <!-- BRAND -->
+    <div class="auth-brand">
+      <img src="assets/logo-bersenandung.png" class="auth-logo">
+
+      <h1>Bersenandung</h1>
+      <p class="tagline">
+        Mulai perjalanan musikmu bersama kami
+      </p>
+
+      <p class="desc">
+        Daftarkan akun untuk mulai menyewa alat musik studio
+        dengan mudah, cepat, dan aman.
+      </p>
+    </div>
+
+    <!-- FORM REGISTER -->
+    <div class="auth-box">
+      <h2>Daftar Akun</h2>
+
+      <input type="text" id="name" placeholder="Nama Lengkap">
+      <input type="email" id="email" placeholder="Email">
+      <div class="password-container">
+        <input type="password" id="password" placeholder="Password">
+        <button type="button" class="toggle-password" onclick="togglePassword('password')">👁️</button>
+      </div>
+
+      <button id="registerBtn">Daftar</button>
+
+      <p>
+        Sudah punya akun?
+        <a href="index.html">Login</a>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

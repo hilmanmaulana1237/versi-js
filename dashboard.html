@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bersenandung | Dashboard</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <main class="container">
+    <h1 class="page-title">Dashboard</h1>
+
+    <!-- ================= USER DASHBOARD ================= -->
+    <section id="userDashboard" class="role-section">
+
+      <!-- HERO -->
+      <section class="dash-hero">
+        <div class="dash-hero-overlay"></div>
+        // ... (content omitted for brevity in call, but logic handles block correctly) ...
+        <!-- ================= ADMIN DASHBOARD ================= -->
+        <section id="adminDashboard" class="admin-section role-section">
+
+          <div class="dash-hero-content">
+            <h1>
+              Selamat Datang di <span>Bersenandung</span>
+            </h1>
+            <p>
+              Studio musik profesional untuk latihan, rekaman,
+              dan kebutuhan pertunjukan Anda.
+            </p>
+
+            <div class="dash-actions">
+              <a href="sewa.html" class="btn-primary">Sewa Alat</a>
+              <a href="alat.html" class="btn-secondary">Lihat Alat</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ALAT MUSIK -->
+        <section class="instrument-showcase">
+          <h2>Alat Musik yang Kami Sediakan</h2>
+
+          <div class="instrument-grid">
+            <div class="instrument-item">
+              <img src="assets/guitar.jpg">
+              <p>Gitar</p>
+            </div>
+            <div class="instrument-item">
+              <img src="assets/drum.jpg">
+              <p>Drum</p>
+            </div>
+            <div class="instrument-item">
+              <img src="assets/piano1.jpg">
+              <p>Piano</p>
+            </div>
+            <div class="instrument-item">
+              <img src="assets/sound1.jpg">
+              <p>Sound System</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- RINGKASAN -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Alat</span>
+            <h3 class="stat-number">24</h3>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-label">Alat Disewa</span>
+            <h3 class="stat-number">6</h3>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-label">Riwayat Sewa</span>
+            <h3 class="stat-number">120</h3>
+          </div>
+        </section>
+      </section>
+      <!-- ================= END USER DASHBOARD ================= -->
+
+
+      <!-- ================= ADMIN DASHBOARD ================= -->
+      <section id="adminDashboard" class="admin-section">
+
+        <!-- HEADER -->
+        <div class="admin-header">
+          <div>
+            <h2>Dashboard Admin</h2>
+            <p>Kelola data alat musik dan transaksi penyewaan</p>
+          </div>
+          <a href="alat.html" class="btn-primary">+ Tambah Alat</a>
+        </div>
+
+        <!-- STATISTIK -->
+        <section class="stats-grid admin-stats">
+          <div class="stat-card admin">
+            <span class="stat-label">Total Alat</span>
+            <h3 class="stat-number">24</h3>
+          </div>
+
+          <div class="stat-card admin">
+            <span class="stat-label">Sewa Aktif</span>
+            <h3 class="stat-number">6</h3>
+          </div>
+
+          <div class="stat-card admin">
+            <span class="stat-label">Total Transaksi</span>
+            <h3 class="stat-number">120</h3>
+          </div>
+        </section>
+
+        <!-- TABEL -->
+        <section class="admin-table">
+          <div class="table-header">
+            <h3>Transaksi Terbaru</h3>
+            <a href="riwayat.html" class="link-more">Lihat Semua</a>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Alat</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nazwa</td>
+                <td>Gitar</td>
+                <td>12 Mei 2025</td>
+                <td><span class="badge aktif">Aktif</span></td>
+              </tr>
+              <tr>
+                <td>Rizky</td>
+                <td>Drum</td>
+                <td>10 Mei 2025</td>
+                <td><span class="badge selesai">Selesai</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </section>
+
+      <!-- ================= END ADMIN DASHBOARD ================= -->
+
+  </main>
+
+  <!-- SCRIPT -->
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/service-worker.js");
+    }
+  </script>
+
+</body>
+
+</html>

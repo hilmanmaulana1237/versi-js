@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Admin",
+      "email": "admin@bersenandung.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "User",
+      "email": "user@bersenandung.com",
+      "password": "user123",
+      "role": "user"
+    }
+  ]
+}

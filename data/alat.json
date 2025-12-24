@@ -1,0 +1,46 @@
+{
+    "alat": [
+        {
+            "id": 1,
+            "nama": "Gitar Akustik Yamaha",
+            "kategori": "Gitar",
+            "stok": 5,
+            "harga_per_jam": 25000
+        },
+        {
+            "id": 2,
+            "nama": "Gitar Elektrik Fender",
+            "kategori": "Gitar",
+            "stok": 3,
+            "harga_per_jam": 35000
+        },
+        {
+            "id": 3,
+            "nama": "Drum Set Pearl",
+            "kategori": "Drum",
+            "stok": 2,
+            "harga_per_jam": 50000
+        },
+        {
+            "id": 4,
+            "nama": "Keyboard Yamaha PSR",
+            "kategori": "Piano",
+            "stok": 4,
+            "harga_per_jam": 30000
+        },
+        {
+            "id": 5,
+            "nama": "Bass Elektrik Ibanez",
+            "kategori": "Bass",
+            "stok": 3,
+            "harga_per_jam": 30000
+        },
+        {
+            "id": 6,
+            "nama": "Sound System JBL",
+            "kategori": "Sound System",
+            "stok": 2,
+            "harga_per_jam": 75000
+        }
+    ]
+}
