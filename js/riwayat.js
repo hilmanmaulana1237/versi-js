@@ -13,10 +13,8 @@ function setupAdminView() {
 
   if (role === 'admin') {
     if (adminSection) adminSection.classList.remove('hidden');
-    // Update stats
     updateRiwayatStats();
   } else {
-    // User view - hide admin specific elements
     if (adminStats) adminStats.style.display = 'none';
   }
 }
@@ -60,34 +58,48 @@ function renderTable(data) {
   }
 
   data.forEach(trx => {
-    let aksi = '';
+    const row = document.createElement('tr');
+
+    let aksiHtml = '';
     if (role === 'admin') {
       if (trx.status === 'pending') {
-        aksi = `<button class="btn-primary" onclick="updateStatus(${trx.id}, 'lunas')">Konfirmasi</button>`;
+        aksiHtml = `<button class="btn-primary" data-konfirmasi="${trx.id}">Konfirmasi</button>`;
       } else if (trx.status === 'lunas') {
-        aksi = `<button class="btn-secondary" onclick="updateStatus(${trx.id}, 'selesai')">Selesai</button>`;
+        aksiHtml = `<button class="btn-secondary" data-selesai="${trx.id}">Selesai</button>`;
       } else {
-        aksi = '-';
+        aksiHtml = '<span>-</span>';
       }
     } else {
-      aksi = `<span class="link-more">-</span>`;
+      aksiHtml = '<span>-</span>';
     }
 
     const badgeClass = trx.status === 'pending' ? 'pending' : (trx.status === 'selesai' ? 'selesai' : 'aktif');
     const formattedDate = new Date(trx.createdAt).toLocaleDateString('id-ID');
 
-    tbody.innerHTML += `
-      <tr>
-        <td>${trx.nama_penyewa || 'User'}</td>
-        <td>${trx.no_hp || '-'}</td>
-        <td>${trx.alat?.nama || 'Alat'}</td>
-        <td>${trx.durasi} Jam</td>
-        <td>Rp ${trx.total_harga?.toLocaleString('id-ID')}</td>
-        <td>${trx.bukti_pembayaran ? 'Ada' : '-'}</td>
-        <td><span class="badge ${badgeClass}">${trx.status}</span></td>
-        <td>${aksi}</td>
-      </tr>
+    row.innerHTML = `
+      <td>${trx.nama_penyewa || 'User'}</td>
+      <td>${trx.no_hp || '-'}</td>
+      <td>${trx.alat?.nama || 'Alat'}</td>
+      <td>${trx.durasi} Jam</td>
+      <td>Rp ${trx.total_harga?.toLocaleString('id-ID')}</td>
+      <td>${trx.bukti_pembayaran ? 'Ada' : '-'}</td>
+      <td><span class="badge ${badgeClass}">${trx.status}</span></td>
+      <td>${aksiHtml}</td>
     `;
+    tbody.appendChild(row);
+  });
+
+  // Attach event listeners for action buttons
+  tbody.querySelectorAll('[data-konfirmasi]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      updateStatus(parseInt(this.dataset.konfirmasi), 'lunas');
+    });
+  });
+
+  tbody.querySelectorAll('[data-selesai]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      updateStatus(parseInt(this.dataset.selesai), 'selesai');
+    });
   });
 }
 
@@ -95,10 +107,14 @@ function updateStatus(id, status) {
   if (!confirm(`Ubah status menjadi ${status}?`)) return;
 
   try {
-    DataManager.updateTransaksiStatus(id, status);
-    alert('Status berhasil diupdate');
-    fetchRiwayat();
-    updateRiwayatStats();
+    const result = DataManager.updateTransaksiStatus(id, status);
+    if (result) {
+      alert('Status berhasil diupdate!');
+      fetchRiwayat();
+      updateRiwayatStats();
+    } else {
+      alert('Transaksi tidak ditemukan');
+    }
   } catch (err) {
     console.error(err);
     alert('Gagal update status');
@@ -107,3 +123,4 @@ function updateStatus(id, status) {
 
 // Expose function globally
 window.updateStatus = updateStatus;
+window.fetchRiwayat = fetchRiwayat;

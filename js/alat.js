@@ -31,18 +31,31 @@ function renderAdminTable() {
 
   tbody.innerHTML = "";
   data.forEach(alat => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${alat.nama}</td>
-        <td>${alat.kategori}</td>
-        <td>${alat.stok}</td>
-        <td>Rp ${alat.harga_per_jam.toLocaleString('id-ID')}</td>
-        <td>
-          <button class="btn-danger" onclick="deleteAlat(${alat.id})">Hapus</button>
-          <button class="btn-secondary" onclick="editAlat(${alat.id})">Edit</button>
-        </td>
-      </tr>
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${alat.nama}</td>
+      <td>${alat.kategori}</td>
+      <td>${alat.stok}</td>
+      <td>Rp ${alat.harga_per_jam.toLocaleString('id-ID')}</td>
+      <td>
+        <button class="btn-danger" data-delete="${alat.id}">Hapus</button>
+        <button class="btn-secondary" data-edit="${alat.id}">Edit</button>
+      </td>
     `;
+    tbody.appendChild(row);
+  });
+
+  // Attach event listeners
+  tbody.querySelectorAll('[data-delete]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      deleteAlat(parseInt(this.dataset.delete));
+    });
+  });
+
+  tbody.querySelectorAll('[data-edit]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      editAlat(parseInt(this.dataset.edit));
+    });
   });
 }
 
@@ -53,17 +66,24 @@ function renderUserTable() {
 
   tbody.innerHTML = "";
   data.forEach(alat => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${alat.nama}</td>
-        <td>${alat.kategori}</td>
-        <td>${alat.stok}</td>
-        <td>Rp ${alat.harga_per_jam.toLocaleString('id-ID')}</td>
-        <td>
-          <button class="btn-primary" onclick="sewaAlat(${alat.id})">Sewa</button>
-        </td>
-      </tr>
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${alat.nama}</td>
+      <td>${alat.kategori}</td>
+      <td>${alat.stok}</td>
+      <td>Rp ${alat.harga_per_jam.toLocaleString('id-ID')}</td>
+      <td>
+        <button class="btn-primary" data-sewa="${alat.id}">Sewa</button>
+      </td>
     `;
+    tbody.appendChild(row);
+  });
+
+  // Attach event listeners
+  tbody.querySelectorAll('[data-sewa]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      sewaAlat(parseInt(this.dataset.sewa));
+    });
   });
 }
 
@@ -84,15 +104,24 @@ function tambahAlat() {
   }
 
   try {
-    DataManager.addAlat({
+    const result = DataManager.addAlat({
       nama: nama,
       kategori: kategori || 'Lainnya',
       stok: parseInt(stok) || 1,
       harga_per_jam: parseInt(harga)
     });
 
+    console.log('Alat added:', result);
     alert('Alat berhasil ditambahkan!');
-    location.reload();
+
+    // Clear form
+    document.getElementById('nama').value = '';
+    document.getElementById('kategori').value = '';
+    document.getElementById('stok').value = '';
+    document.getElementById('harga').value = '';
+
+    // Reload table without full page reload
+    renderAdminTable();
   } catch (err) {
     console.error(err);
     alert("Terjadi kesalahan sistem: " + err.message);
@@ -100,10 +129,16 @@ function tambahAlat() {
 }
 
 function deleteAlat(id) {
-  if (!confirm("Yakin hapus?")) return;
+  if (!confirm("Yakin hapus alat ini?")) return;
 
-  DataManager.deleteAlat(id);
-  location.reload();
+  try {
+    DataManager.deleteAlat(id);
+    alert('Alat berhasil dihapus!');
+    renderAdminTable();
+  } catch (err) {
+    console.error(err);
+    alert("Gagal menghapus alat");
+  }
 }
 
 function editAlat(id) {
@@ -122,6 +157,7 @@ function editAlat(id) {
   // Hapus alat lama (user akan simpan ulang)
   if (confirm("Data akan diisi di form. Setelah edit, klik Simpan untuk menyimpan perubahan.")) {
     DataManager.deleteAlat(id);
+    renderAdminTable();
   }
 }
 
